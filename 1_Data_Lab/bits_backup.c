@@ -1,7 +1,7 @@
 /* 
  * CS:APP Data Lab 
  * 
- * LeonM
+ * <Please put your name and userid here>
  * 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
@@ -143,7 +143,7 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return (~x & y) | (x & ~y);
+  return 2;
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -152,7 +152,9 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
-  return (1 << 31);
+
+  return 2;
+
 }
 //2
 /*
