@@ -161,9 +161,14 @@ int tmin(void) {
  *   Legal ops: ! ~ & ^ | +
  *   Max ops: 10
  *   Rating: 1
+ * ~Any + Any + 1 = 0
+ * Tmin = ~Tmax = Tmax + 1
+ * Only Tmax ^ (Tmax + 1) + 1 = 0
+
  */
 int isTmax(int x) {
-  return 2;
+  // !!(x + 1) exclude x == -1;
+  return !((x ^ (x + 1)) + 1) & !!(x + 1);
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
