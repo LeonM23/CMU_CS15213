@@ -161,13 +161,15 @@ int tmin(void) {
  *   Legal ops: ! ~ & ^ | +
  *   Max ops: 10
  *   Rating: 1
- * ~Any + Any + 1 = 0
- * Tmin = ~Tmax = Tmax + 1
- * Only Tmax ^ (Tmax + 1) + 1 = 0
-
+ * 
+ * Solution:
+ *  ~Any + Any + 1 = 0
+ *  Tmin = ~Tmax = Tmax + 1
+ *  Only Tmax ^ (Tmax + 1) + 1 = 0
+ *  !!(x + 1) exclude x == -1;
+ *  without !!, we will have 0x80000000 for Tmax instead of 0x1
  */
 int isTmax(int x) {
-  // !!(x + 1) exclude x == -1;
   return !((x ^ (x + 1)) + 1) & !!(x + 1);
 }
 /* 
@@ -177,9 +179,13 @@ int isTmax(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 12
  *   Rating: 2
+ * 
+ * Solution:
+ *  Only allOddBits & 0xAAAAAAAA -> 0xAAAAAAAAA
+ *  The problem turns into is0xAAAAAAAA, the same as isTmax
  */
 int allOddBits(int x) {
-  return 2;
+  return !((x & 0xAAAAAAAA) + ~0xAAAAAAAA + 1);
 }
 /* 
  * negate - return -x 
@@ -189,7 +195,7 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  return ~x + 1;
 }
 //3
 /* 
@@ -200,9 +206,15 @@ int negate(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 15
  *   Rating: 3
+ * 
+ * Solution:
+ *  Exclude negative first
+ *  Then assert x - 0x30 >= 0 AND x - 0x40 < 0
  */
 int isAsciiDigit(int x) {
-  return 2;
+  int neg_0 = ~0x30 + 1;
+  int neg_9 = ~0x39;
+  return !(x >> 31) & !((neg_0 + x) >> 31) & ((neg_9 + x) >> 31);
 }
 /* 
  * conditional - same as x ? y : z 
@@ -210,9 +222,16 @@ int isAsciiDigit(int x) {
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 16
  *   Rating: 3
+ * 
+ * Solution:
+ *  find a, b such that output = a & y + b & z
+ *  where a = 0xffffffff and b = 0x0 if x, vice versa
+ *  !x = 0 -> !!x = 1 -> a = 0xffffffff and b = 0x00000000 = ~a
+ *  !x = 1 -> !!x = 0 -> a = 0x00000000 and b = 0xffffffff = ~a
  */
 int conditional(int x, int y, int z) {
-  return 2;
+  int a = !x + 0xffffffff;
+  return (a & y) + (~a & z);
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -220,9 +239,23 @@ int conditional(int x, int y, int z) {
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 24
  *   Rating: 3
+ * 
+ * Solution:
+ *    we assume x + (-y) <= 0, but Tmin will corrupt any neg operation because -Tmin = Tmin
+ *    So if y == Tmin, we have to return 0 if x is not Tmin else 1
+ *    And if y > Tmin, we check the sign bit of x + (-y)
+ *    
+ *    If x == Tmin, always return 1. If not, y == Tmin return False.
+ *    If not, we have x > Tmin and y > Tmin, diff = x - y <= 0 -> diff - 1 < 0 or diff == Tmin, because Tmin - 1 > 0
+ *    So if diff == Tmin, return True, elif diff - 1 < 0, return True
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+  int neg_y = ~y + 1;
+  int y_neq_Tmin = !!(y + 0x80000000);
+  int x_eq_Tmin = !(x + 0x80000000);
+  int diff = x + neg_y;
+  int diff_eq_Tmin = !(diff + 0x80000000);
+  return x_eq_Tmin | y_neq_Tmin & (diff_eq_Tmin | !(((diff + 0xffffffff) >> 31) + 1));
 }
 //4
 /* 
