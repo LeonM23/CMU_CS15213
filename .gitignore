@@ -1,3 +1,7 @@
 /__pycache__
 /.idea
 /.DS_Store
+/.vscode
+*.o
+*.DYSM
+1_Data_Lab/btest
