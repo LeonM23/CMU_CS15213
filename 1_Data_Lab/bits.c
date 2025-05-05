@@ -311,7 +311,33 @@ int logicalNeg(int x)
  */
 int howManyBits(int x)
 {
-  return 0;
+  int bit16, bit8, bit4, bit2, bit1;
+  int sign_x = x >> 31;
+  int new_x = (sign_x & ~x) | (~sign_x & x);
+  // find the highest 1
+  int neg1 = 1 << 31;
+  int mask = neg1 >> 15;
+  bit16 = !!(new_x & mask) << 4; // whether first 16 bits contains 1
+  new_x = new_x >> bit16;
+  new_x = new_x & ~mask;
+
+  mask = mask >> 8;
+  bit8 = !!(new_x & mask) << 3;
+  new_x = (new_x >> bit8) & ~mask;
+
+  mask = mask >> 4;
+  bit4 = !!(new_x & mask) << 2;
+  new_x = (new_x >> bit4) & ~mask;
+
+  mask = mask >> 2;
+  bit2 = !!(new_x & mask) << 1;
+  new_x = (new_x >> bit2) & ~mask;
+
+  mask = mask >> 1;
+  bit1 = !!(new_x & mask);
+  new_x = (new_x >> bit1) & ~mask;
+
+  return bit16 + bit8 + bit4 + bit2 + bit1 + (new_x & 1) + 1;
 }
 // float
 /*
