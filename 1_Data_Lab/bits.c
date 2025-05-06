@@ -350,10 +350,31 @@ int howManyBits(int x)
  *   Legal ops: Any integer/unsigned operations incl. ||, &&. also if, while
  *   Max ops: 30
  *   Rating: 4
+ * Solutions
+    E = 0, M = 0，f = 0 -> 2*f = 0 = f
+    E!= 0, E + 1;
+    E = 0, M!= 0, E + M << 1;
+    E = 1, f = NaN -> 2*f = NaN = f
  */
 unsigned floatScale2(unsigned uf)
 {
-  return 2;
+  int M_mask = 0x007fffff;
+  int E_mask = 0x7f800000;
+  int M_0 = !(M_mask & uf);
+  int E_0 = !(E_mask & uf);
+  int E_1 = !((E_mask & uf) ^ E_mask);
+  if ((M_0 & E_0) | E_1)
+  {
+    return uf;
+  }
+  else if (E_0)
+  {
+    return (0xff800000 & uf) + ((M_mask & uf) << 1);
+  }
+  else
+  {
+    return uf + 0x00800000;
+  }
 }
 /*
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
