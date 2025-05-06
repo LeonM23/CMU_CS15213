@@ -4,6 +4,7 @@
 /.vscode
 *.o
 *.DYSM
+main.*
 1_Data_Lab/btest
 1_Data_Lab/ishow
 1_Data_Lab/fshow
