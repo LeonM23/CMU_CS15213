@@ -387,10 +387,32 @@ unsigned floatScale2(unsigned uf)
  *   Legal ops: Any integer/unsigned operations incl. ||, &&. also if, while
  *   Max ops: 30
  *   Rating: 4
+ * Solution:
+    E < 127 -> abs(uf) < 1 -> return 0
+    E > 157 -> abs(uf) > max(int) -> 0x80000000
  */
 int floatFloat2Int(unsigned uf)
 {
-  return 2;
+  int E = (uf & 0x7f800000) >> 23;
+  int M = (uf & 0x007fffff);
+  int S = uf & 0x80000000;
+  int INT;
+  if (E < 127)
+  {
+    return 0;
+  }
+  else if (E > 157)
+  {
+    return 0x80000000u;
+  }
+  E -= 127;
+  INT = (M | 0x00800000);
+  INT = INT << 7 >> (30 - E);
+  if (S)
+  {
+    INT = ~INT + 1;
+  }
+  return INT;
 }
 /*
  * floatPower2 - Return bit-level equivalent of the expression 2.0^x
@@ -404,8 +426,29 @@ int floatFloat2Int(unsigned uf)
  *   Legal ops: Any integer/unsigned operations incl. ||, &&. Also if, while
  *   Max ops: 30
  *   Rating: 4
+ * Solution:
+    S = 0
+    x > 128                -> M = 0, E = 11111111
+    x >= -126 and x <= 128 -> M = 0, E = x + 127
+    x >= -149 and x < -126 -> E = 0, M = 400000 >> (126 - x)
+    x <  -149              -> E = 0, M = 0
  */
 unsigned floatPower2(int x)
 {
-  return 2;
+  if (x > 128)
+  {
+    return 0x7f800000u;
+  }
+  else if (x >= -126)
+  {
+    return (x + 127) << 23;
+  }
+  else if (x >= -149)
+  {
+    return (0x400000 >> (126 - x));
+  }
+  else
+  {
+    return 0;
+  }
 }
