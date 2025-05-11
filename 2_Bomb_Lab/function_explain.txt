@@ -1,0 +1,5 @@
+read_six_number: 给定输入的字符串x，将其解析为6个数字，放置在y开头的int[6]中
+    如果不够6个数字则引爆炸弹
+
+phase_1: 输入Border relations with Canada have never been better.
+phase_2: 输入六个整数为1, 2, 4, 8, 16, 32
