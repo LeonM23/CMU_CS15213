@@ -1,6 +1,6 @@
 # 使用amd64架构的Ubuntu镜像（兼容32位库）
-FROM --platform=linux/amd64 ubuntu:22.04
-# FROM ubuntu:22.04
+# FROM --platform=linux/amd64 ubuntu:20.04
+FROM ubuntu:20.04
 
 # 禁用交互提示
 ENV DEBIAN_FRONTEND=noninteractive
@@ -18,5 +18,6 @@ RUN apt-get install -y \
         valgrind \
         gcc-multilib \
         g++-multilib
+COPY .gdbinit /root/.gdbinit
 
 RUN rm -rf /var/lib/apt/lists/*
