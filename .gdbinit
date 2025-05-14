@@ -7,3 +7,4 @@ set disassemble-next-line on
 # 设置默认布局为汇编视图（适用于 TUI 模式）
 layout asm
 layout regs
+focus cmd
