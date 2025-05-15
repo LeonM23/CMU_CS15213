@@ -1,0 +1,22 @@
+mov %rax, %rdi  # 0x4019a2 48 89 c7 # 0x4019c5 48 89 c7
+
+mov %eax, %edi  # 0x4019a3 89 c7
+
+mov %rsp, %rax  # 0x401a06 48 89 e0 # 0x401aad 48 89 e0
+
+mov %esp, %eax  # 0x401a3c 89 e0    # 0x401a86 89 e0
+
+mov %eax, %edx  # 0x4019dd 89 c2    # 0x401a42
+
+movl %edx, %ecx # 0x401a69 89 d1    # 0x401a34
+
+mov %ecx, %esi  # 0x401a13 89 ce    $ 0x401a27
+
+pop %rax        # 0x4019ab 58 90    # 0x4019cc 58 90    
+
+pop %rsp        # 0x4019dc 5c 89 c2
+mov %eax, %edx  
+
+test %al, %al%  # 0x401a00
+
+

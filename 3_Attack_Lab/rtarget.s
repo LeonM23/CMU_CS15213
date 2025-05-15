@@ -921,11 +921,11 @@ Disassembly of section .text:
   40199f:	c3                   	ret    
 
 00000000004019a0 <addval_273>:
-  4019a0:	8d 87 48 89 c7 c3    	lea    -0x3c3876b8(%rdi),%eax
+  4019a0:	8d 87 48 89 c7 c3    	lea    -0x3c3876b8(%rdi),%eax   # (48) 89 c7 mov %rax, %rdi
   4019a6:	c3                   	ret    
 
 00000000004019a7 <addval_219>:
-  4019a7:	8d 87 51 73 58 90    	lea    -0x6fa78caf(%rdi),%eax
+  4019a7:	8d 87 51 73 58 90    	lea    -0x6fa78caf(%rdi),%eax    # 58 90 pop %rax
   4019ad:	c3                   	ret    
 
 00000000004019ae <setval_237>:
@@ -941,11 +941,11 @@ Disassembly of section .text:
   4019c2:	c3                   	ret    
 
 00000000004019c3 <setval_426>:
-  4019c3:	c7 07 48 89 c7 90    	movl   $0x90c78948,(%rdi)
+  4019c3:	c7 07 48 89 c7 90    	movl   $0x90c78948,(%rdi)   # 48 89 c7 mov %rax, %rdi
   4019c9:	c3                   	ret    
 
 00000000004019ca <getval_280>:
-  4019ca:	b8 29 58 90 c3       	mov    $0xc3905829,%eax
+  4019ca:	b8 29 58 90 c3       	mov    $0xc3905829,%eax     # 58 pop %rax
   4019cf:	c3                   	ret    
 
 00000000004019d0 <mid_farm>:
@@ -957,7 +957,7 @@ Disassembly of section .text:
   4019da:	c3                   	ret    
 
 00000000004019db <getval_481>:
-  4019db:	b8 5c 89 c2 90       	mov    $0x90c2895c,%eax
+  4019db:	b8 5c 89 c2 90       	mov    $0x90c2895c,%eax   # 5c pop %rsp, 89 c2 mov %eax, %edx
   4019e0:	c3                   	ret    
 
 00000000004019e1 <setval_296>:
@@ -981,7 +981,7 @@ Disassembly of section .text:
   401a02:	c3                   	ret    
 
 0000000000401a03 <addval_190>:
-  401a03:	8d 87 41 48 89 e0    	lea    -0x1f76b7bf(%rdi),%eax
+  401a03:	8d 87 41 48 89 e0    	lea    -0x1f76b7bf(%rdi),%eax   # 48 89 e0 mov %rsp, %rax
   401a09:	c3                   	ret    
 
 0000000000401a0a <setval_276>:
@@ -989,7 +989,7 @@ Disassembly of section .text:
   401a10:	c3                   	ret    
 
 0000000000401a11 <addval_436>:
-  401a11:	8d 87 89 ce 90 90    	lea    -0x6f6f3177(%rdi),%eax
+  401a11:	8d 87 89 ce 90 90    	lea    -0x6f6f3177(%rdi),%eax   # 89 ce mov %ecx, %esi
   401a17:	c3                   	ret    
 
 0000000000401a18 <getval_345>:
@@ -1001,7 +1001,7 @@ Disassembly of section .text:
   401a24:	c3                   	ret    
 
 0000000000401a25 <addval_187>:
-  401a25:	8d 87 89 ce 38 c0    	lea    -0x3fc73177(%rdi),%eax
+  401a25:	8d 87 89 ce 38 c0    	lea    -0x3fc73177(%rdi),%eax   # 89 ce movl %ecx, %esi 38 c0 cmpb %al
   401a2b:	c3                   	ret    
 
 0000000000401a2c <setval_248>:
@@ -1009,15 +1009,15 @@ Disassembly of section .text:
   401a32:	c3                   	ret    
 
 0000000000401a33 <getval_159>:
-  401a33:	b8 89 d1 38 c9       	mov    $0xc938d189,%eax
+  401a33:	b8 89 d1 38 c9       	mov    $0xc938d189,%eax         # 89 d1 movl %edx, %ecx 38 c9 cmpb %cl
   401a38:	c3                   	ret    
 
 0000000000401a39 <addval_110>:
-  401a39:	8d 87 c8 89 e0 c3    	lea    -0x3c1f7638(%rdi),%eax
+  401a39:	8d 87 c8 89 e0 c3    	lea    -0x3c1f7638(%rdi),%eax   # 89 e0 mov %esp, %eax
   401a3f:	c3                   	ret    
 
 0000000000401a40 <addval_487>:
-  401a40:	8d 87 89 c2 84 c0    	lea    -0x3f7b3d77(%rdi),%eax
+  401a40:	8d 87 89 c2 84 c0    	lea    -0x3f7b3d77(%rdi),%eax   # 89 c2 mov %eax, %edx 84 c0 testb %al
   401a46:	c3                   	ret    
 
 0000000000401a47 <addval_201>:
@@ -1041,7 +1041,7 @@ Disassembly of section .text:
   401a67:	c3                   	ret    
 
 0000000000401a68 <getval_311>:
-  401a68:	b8 89 d1 08 db       	mov    $0xdb08d189,%eax
+  401a68:	b8 89 d1 08 db       	mov    $0xdb08d189,%eax         # 89 d1 movl %edx, %ecx 08 db nothing
   401a6d:	c3                   	ret    
 
 0000000000401a6e <setval_167>:
@@ -1057,7 +1057,7 @@ Disassembly of section .text:
   401a82:	c3                   	ret    
 
 0000000000401a83 <addval_358>:
-  401a83:	8d 87 08 89 e0 90    	lea    -0x6f1f76f8(%rdi),%eax
+  401a83:	8d 87 08 89 e0 90    	lea    -0x6f1f76f8(%rdi),%eax   # 89 e0 mov %esp, %eax
   401a89:	c3                   	ret    
 
 0000000000401a8a <addval_124>:
@@ -1081,7 +1081,7 @@ Disassembly of section .text:
   401aaa:	c3                   	ret    
 
 0000000000401aab <setval_350>:
-  401aab:	c7 07 48 89 e0 90    	movl   $0x90e08948,(%rdi)
+  401aab:	c7 07 48 89 e0 90    	movl   $0x90e08948,(%rdi)   # 48 89 e0 mov %rsp, %rax
   401ab1:	c3                   	ret    
 
 0000000000401ab2 <end_farm>:
