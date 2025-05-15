@@ -17,7 +17,9 @@ RUN apt-get install -y \
         libc6-dev-i386 \
         valgrind \
         gcc-multilib \
-        g++-multilib
-COPY .gdbinit /root/.gdbinit
-
+        g++-multilib \
+        python3-pip
+RUN python3 -m pip install ROPgadget
 RUN rm -rf /var/lib/apt/lists/*
+
+COPY .gdbinit /root/.gdbinit
